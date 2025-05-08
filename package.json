@@ -8,6 +8,7 @@
   "type": "module",
 
   "scripts": {
+    "build": "tsc",
     "start": "node src/http.js"
   },
 
