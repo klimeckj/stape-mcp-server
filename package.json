@@ -16,15 +16,12 @@
     "stape"
   ],
   "scripts": {
-    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
-    "build": "tsc",
-    "postinstall": "npm run build",
-    "lint": "eslint --ext .ts src",
-    "lint:fix": "eslint --ext .ts src --fix",
-    "start": "node dist/http.js"
-  },
+  "build":      "tsc",                  // compiles src → dist/
+  "postinstall":"npm run build",        // build runs automatically in Cloud Run
+  "start":      "node dist/http.js"     // launches the HTTP wrapper on $PORT
+},
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@modelcontextprotocol/sdk": "latest",
     "express": "^4.19.2",
     "axios": "^1.8.4",
     "dotenv": "^16.3.1",
