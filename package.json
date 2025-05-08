@@ -16,10 +16,10 @@
     "stape"
   ],
   "scripts": {
-  "build":      "tsc",
-  "postinstall":"npm run build",
-  "start":      "node dist/http.js"
-},
+    "build": "tsc",
+    "postinstall": "npm run build",
+    "start": "node dist/http.js"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "latest",
     "express": "^4.19.2",
