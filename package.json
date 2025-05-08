@@ -17,13 +17,15 @@
   ],
   "scripts": {
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
-    "build": "tsc && chmod 755 dist/index.js",
+    "build": "tsc",
     "postinstall": "npm run build",
     "lint": "eslint --ext .ts src",
-    "lint:fix": "eslint --ext .ts src --fix"
+    "lint:fix": "eslint --ext .ts src --fix",
+    "start": "node dist/http.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
+    "express": "^4.19.2",
     "axios": "^1.8.4",
     "dotenv": "^16.3.1",
     "google-auth-library": "^9.4.1",
