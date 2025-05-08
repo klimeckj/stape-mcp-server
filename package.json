@@ -17,7 +17,6 @@
   ],
   "scripts": {
     "build": "tsc",
-    "postinstall": "npm run build",
     "start": "node dist/http.js"
   },
   "dependencies": {
