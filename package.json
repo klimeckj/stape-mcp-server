@@ -16,7 +16,7 @@
     "stape"
   ],
   "scripts": {
-  "build":      "tsc",                  // compiles src → dist/
+  "build":      "tsc",
   "postinstall":"npm run build",        // build runs automatically in Cloud Run
   "start":      "node dist/http.js"     // launches the HTTP wrapper on $PORT
 },
