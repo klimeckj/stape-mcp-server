@@ -1,23 +1,29 @@
 {
   "name": "stape-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server for Stape (runtime‑only build)",
+  "description": "MCP server for Stape (TypeScript build)",
   "license": "Apache-2.0",
   "author": "stape-io",
   "homepage": "https://github.com/stape-io/stape-mcp-server",
   "type": "module",
 
   "scripts": {
-    "start": "node src/http.js"
+    "build": "tsc",
+    "start": "node dist/http.js"
   },
 
   "dependencies": {
     "@modelcontextprotocol/sdk": "latest",
-    "express": "^4.19.2",
     "axios": "^1.8.4",
     "dotenv": "^16.3.1",
+    "express": "^4.19.2",
     "google-auth-library": "^9.4.1",
     "googleapis": "^128.0.0",
     "zod": "^3.22.4"
+  },
+
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.8.3"
   }
 }
