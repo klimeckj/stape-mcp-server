@@ -11,9 +11,11 @@ RUN npm install \
 
 COPY . .
 
-# 👇 new – print the first 10 lines of http.ts inside the build log
+# current debug
 RUN echo "===== shared dir listing =====" \
  && ls node_modules/@modelcontextprotocol/sdk/dist/esm/shared | head -20 \
+ && echo "===== shared/transport.js =====" \
+ && head -n 40 node_modules/@modelcontextprotocol/sdk/dist/esm/shared/transport.js \
  && echo "=========== end listing =========="
 
 ENV NODE_ENV=production
