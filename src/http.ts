@@ -1,9 +1,9 @@
 import express from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StreamableHTTPServerTransport }
-  from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { loadEnv, getPackageVersion } from "./utils.js";
-import { tools } from "./tools.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp";
+import { loadEnv, getPackageVersion } from "./utils";
+import { tools } from "./tools";
+
 
 loadEnv();
 
