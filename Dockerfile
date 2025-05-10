@@ -12,9 +12,9 @@ RUN npm install \
 COPY . .
 
 # 👇 new – print the first 10 lines of http.ts inside the build log
-RUN echo "===== http.ts inside image =====" \
- && head -n 10 src/http.ts \
- && echo "=========== end =============="
+RUN echo "===== shared dir listing =====" \
+ && ls node_modules/@modelcontextprotocol/sdk/dist/esm/shared | head -20 \
+ && echo "=========== end listing =========="
 
 ENV NODE_ENV=production
 EXPOSE 8080
