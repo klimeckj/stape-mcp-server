@@ -3,9 +3,11 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install \
- && echo "===== SDK server dir listing =====" \
- && ls -R node_modules/@modelcontextprotocol/sdk/dist/esm/server | head -40 \
- && echo "=========== end listing =========="
+ && echo "===== server/index.js =====" \
+ && head -n 40 node_modules/@modelcontextprotocol/sdk/dist/esm/server/index.js \
+ && echo "===== server/stdio.js =====" \
+ && head -n 40 node_modules/@modelcontextprotocol/sdk/dist/esm/server/stdio.js \
+ && echo "=========== end ==========="
 
 COPY . .
 
