@@ -1,29 +1,52 @@
+// ---------- src/http.ts --------------
 import express from "express";
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+// 👇 keep using the local shim!
 import { StreamableHTTPServerTransport } from "./lib/mcp/streamableHttp.js";
+
 import { loadEnv, getPackageVersion } from "./utils";
 import { tools } from "./tools";
 
-
 loadEnv();
 
-const server = new McpServer({
-  name: "google-tag-manager",
-  version: getPackageVersion(),
-  protocolVersion: "1.0",
-  vendor: "stape-io",
-});
+async function main() {
+  try {
+    /** 1️⃣  Build the MCP server */
+    const server = new McpServer({
+      name: "google-tag-manager",
+      version: getPackageVersion(),
+      protocolVersion: "1.0",
+      vendor: "stape-io",
+    });
 
-tools.forEach(r => r(server));
+    // Register tools
+    tools.forEach(t => t(server));
+    console.log(`🔧 Registered ${tools.length} tool(s)`);
 
-const transport = new StreamableHTTPServerTransport({
-  enableJsonResponse: true          // so POST /mcp returns plain JSON
-});
+    /** 2️⃣  Transport */
+    const transport = new StreamableHTTPServerTransport({
+      enableJsonResponse: true,
+    });
 
-const app = express();
-app.use(express.json());
-transport.attach(app, "/mcp");      // POST /mcp  (Claude/Gemini default)
+    /** 3️⃣  Express wiring */
+    const app = express();
+    app.use(express.json());
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () =>
-  console.log(`✅ MCP HTTP server listening on ${PORT}`));
+    console.log("📡 Attaching MCP transport to /mcp");
+    transport.attach(app, "/mcp");
+    console.log("✅ Transport attached");
+
+    /** 4️⃣  Start HTTP server */
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => {
+      console.log(`🚀 MCP HTTP Server UP on :${PORT}`);
+    });
+  } catch (err) {
+    // Crash hard so Cloud Run logs the stack trace and the revision fails fast
+    console.error("❌ Fatal startup error", err);
+    process.exit(1);
+  }
+}
+
+main();
