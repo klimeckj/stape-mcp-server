@@ -1,28 +1,13 @@
-############################
-# ---- 1. BUILD stage ---- #
-############################
-FROM node:18-alpine AS build
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-# copy sources and compile -> dist/
-COPY tsconfig.json ./
-COPY src ./src
-RUN npx tsc
-
-###############################
-# ---- 2. RUNTIME stage ----  #
-###############################
 FROM node:18-alpine
 WORKDIR /app
 
+# install runtime + ts‑node deps
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm install
 
-COPY --from=build /app/dist ./dist
+# copy source
+COPY . .
 
 ENV NODE_ENV=production
 EXPOSE 8080
-CMD ["node", "dist/http.js"]
+CMD ["npm", "start"]
